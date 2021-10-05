@@ -1,0 +1,14 @@
+.link {
+  color: black;
+}
+
+.activeLink {
+  color: brown;
+}
+
+.link,
+.activeLink {
+  font-size: 25px;
+  margin-right: 10px;
+  text-decoration: none;
+}
