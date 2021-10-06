@@ -24,8 +24,6 @@ export function fetchMoviesByQuery(query) {
   );
 }
 
-console.log(fetchMoviesByQuery('app'));
-
 // полная информация о фильме
 
 export function fetchFullMovieInfo(movieId) {

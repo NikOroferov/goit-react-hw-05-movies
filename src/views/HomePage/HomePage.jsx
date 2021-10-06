@@ -1,14 +1,9 @@
 import css from './HomePage.module.css';
+import Loader from 'react-loader-spinner';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as moviesApi from '../../services/fetch-api';
-
-const STATUS = {
-  IDLE: 'idle',
-  PENDING: 'pending',
-  RESOLVED: 'resolved',
-  REJECTED: 'rejected',
-};
+import STATUS from '../../services/function-status.json';
 
 export default function Home() {
   const [movies, setMovies] = useState(null);
@@ -31,7 +26,12 @@ export default function Home() {
   return (
     <>
       {status === STATUS.PENDING && (
-        <h2>Пожалуйста, ожидайте результат</h2>
+        <Loader
+          type="ThreeDots"
+          color="#b41408"
+          height={80}
+          width={80}
+        />
       )}
       {status === STATUS.REJECTED && <h2>Что-то пошло не так :С</h2>}
       {status === STATUS.RESOLVED && (
