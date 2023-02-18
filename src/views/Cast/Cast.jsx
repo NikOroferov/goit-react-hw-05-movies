@@ -1,8 +1,10 @@
 import css from './Cast.module.css';
 import { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
-import * as movieApi from '../../services/fetch-api';
+// import * as movieApi from '../../services/fetch-api';
+import { movieAPI } from '../../services/fetch-api';
 import STATUS from '../../services/function-status.json';
+import ActorCard from 'components/ActorCard/ActorCard';
 
 export default function Cast({ movieId }) {
   const [cast, setCast] = useState(null);
@@ -10,7 +12,7 @@ export default function Cast({ movieId }) {
 
   useEffect(() => {
     setStatus(STATUS.PENDING);
-    movieApi
+    movieAPI
       .fetchCastingInfo(movieId)
       .then(response => {
         setCast(response.cast);
@@ -36,25 +38,12 @@ export default function Cast({ movieId }) {
         <ul className={css.castList}>
           {cast.length > 0 ? (
             cast.map(actor => (
-              <li key={actor.id} className={css.castItem}>
-                {actor.profile_path ? (
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
-                    alt={actor.name}
-                    height="200px"
-                  />
-                ) : (
-                  <img
-                    src="http://dummyimage.com/133x200/99cccc.jpg&text=No+photo"
-                    alt={actor.name}
-                    height="200px"
-                  />
-                )}
-                <div className={css.description}>
-                  <h3>{actor.name}</h3>
-                  <p>Character: {actor.character}</p>
-                </div>
-              </li>
+              <ActorCard
+                id={actor.id}
+                profile={actor.profile_path}
+                name={actor.name}
+                character={actor.character}
+              />
             ))
           ) : (
             <div>We don't have any actor for this movie</div>

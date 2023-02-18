@@ -1,4 +1,31 @@
-.link {
+.main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 15px 250px;
+}
+
+.tranding__list{
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: -20px 0 0 -20px;
+  list-style-type: none;
+}
+
+.tranding__item{
+  flex-basis: calc(33% - 20px);
+  margin: 20px 0 0 20px;
+}
+
+.tranding__item:hover,
+.tranding__item:focus,{
+  cursor: pointer;
+  color: brown;
+}
+  .link {
   color: black;
 }
 
@@ -10,3 +37,4 @@
 .activeLink {
   text-decoration: none;
 }
+

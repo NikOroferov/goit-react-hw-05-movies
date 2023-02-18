@@ -1,0 +1,45 @@
+.tranding__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  /* max-width: 1000px; */
+  padding: 0;
+  margin: 0 auto;
+  list-style-type: none;
+}
+
+.movie__item {
+  flex-basis: 32%;
+
+}
+
+.movie__item--poster__thumb{
+  height: 450px;
+  min-width: 100%;
+}
+
+.movie__item--poster {
+  min-width: 320px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.movie__item:hover,
+.movie__item:focus,
+{
+  cursor: pointer;
+}
+
+.link {
+  color: black;
+}
+
+.activeLink {
+  color: brown;
+}
+
+.link,
+.activeLink {
+  text-decoration: none;
+}

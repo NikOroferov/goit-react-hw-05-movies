@@ -1,7 +1,8 @@
 import css from './Review.module.css';
 import { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
-import * as movieApi from '../../services/fetch-api';
+// import * as movieApi from '../../services/fetch-api';
+import { movieAPI } from 'services/fetch-api';
 import STATUS from '../../services/function-status.json';
 
 export default function Review({ movieId }) {
@@ -10,9 +11,10 @@ export default function Review({ movieId }) {
 
   useEffect(() => {
     setStatus(STATUS.PENDING);
-    movieApi
+    movieAPI
       .fetchMovieReview(movieId)
       .then(response => {
+        console.log(response);
         setReviews(response.results);
         setStatus(STATUS.RESOLVED);
       })
@@ -39,6 +41,10 @@ export default function Review({ movieId }) {
               review =>
                 (
                   <li key={review.id} className={css.listItem}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${review.author_details.avatar_path}`}
+                      alt=""
+                    />
                     <h4 className={css.titleReviews}>
                       {review.author}
                     </h4>

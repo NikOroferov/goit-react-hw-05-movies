@@ -1,19 +1,17 @@
 import css from './MoviesPage.module.css';
 import { useState, useEffect } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import * as movieApi from '../../services/fetch-api';
+import { movieAPI } from '../../services/fetch-api';
 import Searchbar from 'components/Searchbar/Searchbar';
 import STATUS from '../../services/function-status.json';
+import MoviesList from 'components/MoviesList/MoviesList';
+import MovieItem from 'components/MoviesList/MovieItem';
 
 export default function Movies() {
   const history = useHistory();
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('query');
-
-  console.log(history);
-  console.log(location);
-  console.log(query);
 
   const [movies, setMovies] = useState(null);
   const [status, setStatus] = useState(STATUS.IDLE);
@@ -31,7 +29,8 @@ export default function Movies() {
     }
 
     setStatus(STATUS.PENDING);
-    movieApi
+
+    movieAPI
       .fetchMoviesByQuery(query)
       .then(response => {
         if (response.total_results === 0) {
@@ -47,7 +46,7 @@ export default function Movies() {
   }, [location.search, query]);
 
   return (
-    <>
+    <section className={css['search--movie']}>
       <Searchbar onSubmit={onFormSubmit} />
 
       {status === STATUS.PENDING && (
@@ -62,23 +61,17 @@ export default function Movies() {
         <h2>Movies is not found. Try again</h2>
       )}
       {status === STATUS.RESOLVED && (
-        <ul className={css.list}>
+        <MoviesList>
           {movies.map(movie => (
-            <li key={movie.id}>
-              <Link
-                className={css.item}
-                activeClassName={css.activeItem}
-                to={{
-                  pathname: `/movies/${movie.id}`,
-                  state: { from: location },
-                }}
-              >
-                {movie.original_title}
-              </Link>
-            </li>
+            <MovieItem
+              key={movie.id}
+              id={movie.id}
+              poster={movie.poster_path}
+              title={movie.original_title}
+            />
           ))}
-        </ul>
+        </MoviesList>
       )}
-    </>
+    </section>
   );
 }

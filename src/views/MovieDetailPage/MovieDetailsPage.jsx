@@ -9,7 +9,7 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom';
-import * as movieApi from '../../services/fetch-api';
+import { movieAPI } from '../../services/fetch-api';
 import STATUS from '../../services/function-status.json';
 
 const Cast = lazy(() =>
@@ -32,7 +32,7 @@ export default function MovieDetails() {
 
   useEffect(() => {
     setStatus(STATUS.PENDING);
-    movieApi
+    movieAPI
       .fetchFullMovieInfo(movieId)
       .then(responce => {
         setMovie(responce);
@@ -46,7 +46,7 @@ export default function MovieDetails() {
   };
 
   return (
-    <>
+    <section className={css['movie--details']}>
       <button
         type="button"
         onClick={onComeBack}
@@ -62,10 +62,10 @@ export default function MovieDetails() {
           width={80}
         />
       )}
-      {status === STATUS.REJECTED && <h2>Что-то пошло не так</h2>}
+      {status === STATUS.REJECTED && <h2>Something went wrong</h2>}
       {status === STATUS.RESOLVED && (
         <div>
-          <div className={css.movieInfo}>
+          <div className={css['movie--details__description']}>
             {movie.poster_path ? (
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -78,7 +78,7 @@ export default function MovieDetails() {
                 alt={movie.title}
               />
             )}
-            <div>
+            <div className={css['movie--details__description--info']}>
               <h2>
                 {movie.title} ({movie.release_date.slice(0, 4)})
               </h2>
@@ -87,21 +87,29 @@ export default function MovieDetails() {
               <p>{movie.overview}</p>
               <h3>Genres</h3>
               {movie.genres.length > 0 ? (
-                <ul>
+                <ul
+                  className={
+                    css['movie--details__description--info__genres']
+                  }
+                >
                   {movie.genres.map(genre => (
                     <li key={genre.id}>{genre.name}</li>
                   ))}
                 </ul>
               ) : (
-                <p>Нет информации о жанрах</p>
+                <p>No genres info</p>
               )}
             </div>
           </div>
-          <div>
-            <h3>Дополнительная информация</h3>
+          <div className={css['movie--details__more--info']}>
+            <h3 className={css['movie--details__more--info__title']}>
+              More info
+            </h3>
             <NavLink
-              className={css.info}
-              activeClassName={css.infoActive}
+              className={css['movie--details__more--info__link']}
+              activeClassName={
+                css['movie--details__more--info__active--link']
+              }
               to={{
                 pathname: `${url}/cast`,
                 state: { from: history?.location?.state?.from },
@@ -111,8 +119,10 @@ export default function MovieDetails() {
             </NavLink>
 
             <NavLink
-              className={css.info}
-              activeClassName={css.infoActive}
+              className={css['movie--details__more--info__link']}
+              activeClassName={
+                css['movie--details__more--info__active--link']
+              }
               to={{
                 pathname: `${url}/reviews`,
                 state: { from: history?.location?.state?.from },
@@ -142,6 +152,6 @@ export default function MovieDetails() {
           {<Review movieId={movieId} />}
         </Route>
       </Suspense>
-    </>
+    </section>
   );
 }
