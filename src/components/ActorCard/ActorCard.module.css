@@ -1,4 +1,21 @@
-.actor--card{
+.actor--card__item{
   display: flex;
+  gap: 15px;
+
+  padding: 10px 15px;
   margin-bottom: 10px;
+
+
+  border: 1px solid sienna;
+}
+
+.actor--card__item--description{
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.actor--card__item--photo{
+  /* margin-right: 20px; */
 }

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Navigation() {
   return (
-    <nav>
+    <nav className={css.navigation}>
       <NavLink
         to="/"
         className={css.link}

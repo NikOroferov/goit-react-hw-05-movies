@@ -1,9 +1,9 @@
 import css from './Review.module.css';
 import { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
-// import * as movieApi from '../../services/fetch-api';
 import { movieAPI } from 'services/fetch-api';
 import STATUS from '../../services/function-status.json';
+import ReviewerCard from 'components/ReviewerCard/ReviewerCard';
 
 export default function Review({ movieId }) {
   const [reviews, setReviews] = useState(null);
@@ -14,7 +14,7 @@ export default function Review({ movieId }) {
     movieAPI
       .fetchMovieReview(movieId)
       .then(response => {
-        console.log(response);
+        console.log(response.results);
         setReviews(response.results);
         setStatus(STATUS.RESOLVED);
       })
@@ -24,7 +24,7 @@ export default function Review({ movieId }) {
   }, [movieId]);
 
   return (
-    <>
+    <div>
       {status === STATUS.PENDING && (
         <Loader
           type="ThreeDots"
@@ -35,21 +35,17 @@ export default function Review({ movieId }) {
       )}
       {status === STATUS.REJECTED && <h2>Что-то пошло не так</h2>}
       {status === STATUS.RESOLVED && (
-        <ul>
+        <ul className={css.review__list}>
           {reviews.length > 0 ? (
             reviews.map(
               review =>
                 (
-                  <li key={review.id} className={css.listItem}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${review.author_details.avatar_path}`}
-                      alt=""
-                    />
-                    <h4 className={css.titleReviews}>
-                      {review.author}
-                    </h4>
-                    <p>{review.content}</p>
-                  </li>
+                  <ReviewerCard
+                    key={review.id}
+                    created={review.created_at}
+                    review={review.content}
+                    author={review.author}
+                  />
                 ) ?? <p>Reviews not found</p>,
             )
           ) : (
@@ -57,6 +53,6 @@ export default function Review({ movieId }) {
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }

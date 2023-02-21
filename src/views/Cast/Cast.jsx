@@ -1,7 +1,6 @@
 import css from './Cast.module.css';
 import { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
-// import * as movieApi from '../../services/fetch-api';
 import { movieAPI } from '../../services/fetch-api';
 import STATUS from '../../services/function-status.json';
 import ActorCard from 'components/ActorCard/ActorCard';
@@ -24,7 +23,7 @@ export default function Cast({ movieId }) {
   }, [movieId]);
 
   return (
-    <>
+    <div>
       {status === STATUS.PENDING && (
         <Loader
           type="ThreeDots"
@@ -33,13 +32,13 @@ export default function Cast({ movieId }) {
           width={80}
         />
       )}
-      {status === STATUS.REJECTED && <h2>Что-то пошло не так</h2>}
+      {status === STATUS.REJECTED && <h2>Something went wrong</h2>}
       {status === STATUS.RESOLVED && (
         <ul className={css.castList}>
           {cast.length > 0 ? (
             cast.map(actor => (
               <ActorCard
-                id={actor.id}
+                key={actor.id}
                 profile={actor.profile_path}
                 name={actor.name}
                 character={actor.character}
@@ -50,6 +49,6 @@ export default function Cast({ movieId }) {
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }

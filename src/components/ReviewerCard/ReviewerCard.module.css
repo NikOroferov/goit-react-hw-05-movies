@@ -1,0 +1,26 @@
+.review__item{
+  display: flex;
+
+  margin-bottom:  20px;
+  padding: 10px 15px;
+
+  border: 1px solid sienna;
+}
+
+.review__item__content{
+  display: flex;
+  flex-direction: column;
+}
+
+.review__item__content--sign{
+  display: flex;
+  align-items: baseline;
+  gap: 25px;
+
+  padding-bottom: 10px;
+}
+
+.review__item--created{
+  font-size: 12px;
+  color: gray;
+}

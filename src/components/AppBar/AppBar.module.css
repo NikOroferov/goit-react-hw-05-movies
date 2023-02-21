@@ -1,4 +1,6 @@
 .header{
   padding: 15px 20px;
   background-color: ghostwhite;
+
+  border-bottom: 2px solid black;
 }

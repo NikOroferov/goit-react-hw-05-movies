@@ -12,7 +12,7 @@ export default function Searchbar({ onSubmit }) {
     e.preventDefault();
 
     if (query.trim === '') {
-      alert('Введите поисковый запрос');
+      alert('Input search query');
       return;
     }
 

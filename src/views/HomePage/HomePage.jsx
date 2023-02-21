@@ -5,6 +5,7 @@ import { movieAPI } from '../../services/fetch-api';
 import STATUS from '../../services/function-status.json';
 import MoviesList from 'components/MoviesList/MoviesList';
 import MovieItem from 'components/MoviesList/MovieItem';
+import Container from 'components/Container/Container';
 
 export default function Home() {
   const [movies, setMovies] = useState(null);
@@ -25,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <Container>
       {status === STATUS.PENDING && (
         <Loader
           type="ThreeDots"
@@ -34,10 +35,10 @@ export default function Home() {
           width={80}
         />
       )}
-      {status === STATUS.REJECTED && <h2>Something went wrong :С</h2>}
+      {status === STATUS.REJECTED && <h2>Something went wrong</h2>}
       {status === STATUS.RESOLVED && (
-        <div className={css.main}>
-          <h2>Trending today</h2>
+        <section className={css.homepage}>
+          <h1 className={css.homepage__title}>Trending movies</h1>
           {movies && (
             <MoviesList>
               {movies.map(movie => (
@@ -50,25 +51,8 @@ export default function Home() {
               ))}
             </MoviesList>
           )}
-          {/* <ul className={css.tranding__list}>
-            {movies &&
-              movies.map(movie => (
-                <li key={movie.id} className={css.tranding__item}>
-                  <Link
-                    className={css.link}
-                    to={`/movies/${movie.id}`}
-                  >
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                      alt={movie.original_title}
-                    />
-                    <p>{movie.original_title}</p>
-                  </Link>
-                </li>
-              ))}
-          </ul> */}
-        </div>
+        </section>
       )}
-    </>
+    </Container>
   );
 }

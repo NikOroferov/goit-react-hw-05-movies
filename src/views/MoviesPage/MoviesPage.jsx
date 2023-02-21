@@ -7,6 +7,7 @@ import Searchbar from 'components/Searchbar/Searchbar';
 import STATUS from '../../services/function-status.json';
 import MoviesList from 'components/MoviesList/MoviesList';
 import MovieItem from 'components/MoviesList/MovieItem';
+import Container from 'components/Container/Container';
 
 export default function Movies() {
   const history = useHistory();
@@ -46,32 +47,34 @@ export default function Movies() {
   }, [location.search, query]);
 
   return (
-    <section className={css['search--movie']}>
-      <Searchbar onSubmit={onFormSubmit} />
+    <Container>
+      <section className={css['search--movie']}>
+        <Searchbar onSubmit={onFormSubmit} />
 
-      {status === STATUS.PENDING && (
-        <Loader
-          type="ThreeDots"
-          color="#b41408"
-          height={80}
-          width={80}
-        />
-      )}
-      {status === STATUS.REJECTED && (
-        <h2>Movies is not found. Try again</h2>
-      )}
-      {status === STATUS.RESOLVED && (
-        <MoviesList>
-          {movies.map(movie => (
-            <MovieItem
-              key={movie.id}
-              id={movie.id}
-              poster={movie.poster_path}
-              title={movie.original_title}
-            />
-          ))}
-        </MoviesList>
-      )}
-    </section>
+        {status === STATUS.PENDING && (
+          <Loader
+            type="ThreeDots"
+            color="#b41408"
+            height={80}
+            width={80}
+          />
+        )}
+        {status === STATUS.REJECTED && (
+          <h2>Movies is not found. Try again</h2>
+        )}
+        {status === STATUS.RESOLVED && (
+          <MoviesList>
+            {movies.map(movie => (
+              <MovieItem
+                key={movie.id}
+                id={movie.id}
+                poster={movie.poster_path}
+                title={movie.original_title}
+              />
+            ))}
+          </MoviesList>
+        )}
+      </section>
+    </Container>
   );
 }

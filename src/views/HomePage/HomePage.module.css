@@ -1,10 +1,17 @@
-.main{
+.homepage{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
-  padding: 15px 250px;
+  width: 1024px;
+  margin: 0 auto;
+}
+
+.homepage__title{
+  padding: 15px 25px;
+
+  font-size: 24px;
 }
 
 .tranding__list{

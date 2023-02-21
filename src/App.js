@@ -2,7 +2,6 @@ import './App.css';
 import Loader from 'react-loader-spinner';
 import { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Container from './components/Container/Container';
 import AppBar from './components/AppBar/AppBar';
 
 const Home = lazy(() =>
@@ -26,19 +25,18 @@ const MovieDetails = lazy(() =>
 function App() {
   return (
     <>
-      <Container>
-        <AppBar />
-
-        <Suspense
-          fallback={
-            <Loader
-              type="Audio"
-              color="#b41408"
-              height={80}
-              width={80}
-            />
-          }
-        >
+      <AppBar />
+      <Suspense
+        fallback={
+          <Loader
+            type="Audio"
+            color="#b41408"
+            height={80}
+            width={80}
+          />
+        }
+      >
+        <main>
           <Switch>
             <Route path="/" exact>
               <Home />
@@ -56,8 +54,8 @@ function App() {
               <Home />
             </Route>
           </Switch>
-        </Suspense>
-      </Container>
+        </main>
+      </Suspense>
     </>
   );
 }
